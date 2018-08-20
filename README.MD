@@ -2,8 +2,8 @@
 
 Optional: Laravel 5.* storage
 
-## Setup Selectel official site
-- Register at Selectel
+## Setup [electel official site](https://selectel.com/)
+- Register on [Selectel](https://selectel.com/)
 - Create container in Selectel Storage (private access is recommended)
 - Create user for safety use
 - Grant access with custom access permissions to container(read/write)
