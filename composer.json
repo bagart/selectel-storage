@@ -1,0 +1,40 @@
+{
+  "name": "bagart/selectel-storage",
+  "description": "Selectel CDN Storage for League Flysystem. Laravel preferred",
+  "license": "MIT",
+  "version": "1.0.1",
+  "keywords": [
+    "laravel",
+    "selectel",
+    "flysystem",
+    "openstack"
+  ],
+  "homepage": "https://github.com/bagart/selectel-storage",
+  "require": {
+    "php": "~~7.1",
+    "league/flysystem-rackspace": "^1.0",
+    "php-opencloud/openstack": "^3.0",
+    "league/flysystem-cached-adapter": "^1.0"
+  },
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "BAGArt (Baltaev Artur)",
+      "email": "baltaev.artur+opensource@gmail.com",
+      "site": "https://github.com/bagart/",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "BAGArt\\SelectelStorage\\": "src"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "BAGArt\\SelectelStorage\\SelectelServiceProvider"
+      ]
+    }
+  }
+}
