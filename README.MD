@@ -73,8 +73,8 @@ BAGArt\SelectelStorage\SelectelServiceProvider::class,
 # Laravel use
 ```php
     dump([
-        'put' => Storage::disk('some_named_container)->put('test_file_name', 'some test content')),
-        'get' => Storage::disk('some_named_container)->get('test_file_name')
+        'put' => Storage::disk('some_named_container)->put('test_file_name', 'some test content'),
+        'get' => Storage::disk('some_named_container)->get('test_file_name'),
         'delete' =>  Storage::disk('some_named_container)->delete('test_file_name'),
     ]);
 ```
