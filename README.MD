@@ -9,10 +9,11 @@ Optional: Laravel 5.* storage
 - Grant access with custom access permissions to container(read/write)
 
 
-#install
+# Install composer package
 ```bash
 composer require bagart/selectel-storage
 ```
+
 ## Configure ENV
 Add to $_ENV (Laravel: `.env` file)
 ```sh
@@ -22,14 +23,15 @@ SELECTEL_PASSWORD=___PASSWORD___
 ```
 
 ### Optional:
-For safe use private documents - prepare TEMP_URL_SECRET
+For safe use private documents with access to file without password - prepare TEMP_URL_SECRET
 Reason: access to private file with temporary key
 
 Add to $_ENV (Laravel: `.env` file)
 ```sh
 SELECTEL_TEMP_URL_SECRET=___ANY_SAFE_STRING_AS_SECRET___
 ```
-preset ___ANY_SAFE_STRING_AS_SECRET___ to CDN
+
+preset `___ANY_SAFE_STRING_AS_SECRET___ `to CDN
 ```bash 
 #put username and password
 curl -i -X POST https://api.selcdn.ru/v2.0/tokens -H 'Content-type: application/json' -d '{"auth": {"passwordCredentials": {"username": "00000_some_user", "password": "___PASSWORD___"}}}'
