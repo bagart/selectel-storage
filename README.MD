@@ -8,6 +8,11 @@ Optional: Laravel 5.* storage
 - Create user for safety use
 - Grant access with custom access permissions to container(read/write)
 
+
+#install
+```bash
+composer require bagart/selectel-storage
+```
 ## Configure ENV
 Add to $_ENV (Laravel: `.env` file)
 ```sh
