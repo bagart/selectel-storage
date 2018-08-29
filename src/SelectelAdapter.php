@@ -15,7 +15,7 @@ class SelectelAdapter extends RackspaceAdapter
             throw new Exceptions\ObjectError('Cannot produce temporary URL without an account secret.');
         }
 
-        $this->getContainer()->getObject($path);
+//        $this->getContainer()->getObject($path);
 
         $method = strtoupper($options['method'] ?? 'GET');
         $expiry = Carbon::parse($expiration)->timestamp;
