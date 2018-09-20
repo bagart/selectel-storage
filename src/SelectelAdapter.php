@@ -9,12 +9,21 @@ use Guzzle\Http\Url as GuzzleUrl;
 
 class SelectelAdapter extends RackspaceAdapter
 {
-    public function getUrl($path): GuzzleUrl
+    public function isTempDefault(): bool
     {
+        return (bool)$this->getContainer()->getClient()->getSecret('tempUrlSecret');
+    }
+
+    public function getUrl($path, $expiration = '24 hour', $options = []): string
+    {
+        if ($expiration && $this->isTempDefault()) {
+            return $this->getTemporaryUrl($path, $expiration, $options);
+        }
+
         return $this->getContainer()->getUrl($path);
     }
 
-    public function getTemporaryUrl($path, $expiration, $options)
+    public function getTemporaryUrl($path, $expiration = '24 hour', $options): string
     {
         $secret = $this->getContainer()->getService()->getAccount()->getTempUrlSecret();
         if (!$secret) {
