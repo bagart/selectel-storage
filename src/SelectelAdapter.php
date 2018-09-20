@@ -5,9 +5,15 @@ namespace BAGArt\SelectelStorage;
 use Carbon\Carbon;
 use League\Flysystem\Rackspace\RackspaceAdapter;
 use OpenCloud\Common\Exceptions;
+use Guzzle\Http\Url as GuzzleUrl;
 
 class SelectelAdapter extends RackspaceAdapter
 {
+    public function getUrl($path): GuzzleUrl
+    {
+        return $this->getContainer()->getUrl($path);
+    }
+
     public function getTemporaryUrl($path, $expiration, $options)
     {
         $secret = $this->getContainer()->getService()->getAccount()->getTempUrlSecret();
