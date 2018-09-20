@@ -9,14 +9,18 @@ use Guzzle\Http\Url as GuzzleUrl;
 
 class SelectelAdapter extends RackspaceAdapter
 {
-    public function isTempDefault(): bool
+    public function isTempQuery($path, $expiration = '24 hour', $options = []): bool
     {
-        return (bool)$this->getContainer()->getClient()->getSecret('tempUrlSecret');
+        return (
+            empty($options['forcePublicUrl'])
+            && $expiration
+            && $this->getContainer()->getClient()->getSecret('tempUrlSecret')
+        );
     }
 
     public function getUrl($path, $expiration = '24 hour', $options = []): string
     {
-        if ($expiration && $this->isTempDefault()) {
+        if ($this->isTempQuery($path, $expiration, $options)) {
             return $this->getTemporaryUrl($path, $expiration, $options);
         }
 
@@ -25,13 +29,16 @@ class SelectelAdapter extends RackspaceAdapter
 
     public function getTemporaryUrl($path, $expiration = '24 hour', $options): string
     {
+        if (!$this->isTempQuery($path, $expiration, $options)) {
+            return $this->getUrl($path, null, $options);
+        }
+
         $secret = $this->getContainer()->getService()->getAccount()->getTempUrlSecret();
         if (!$secret) {
             throw new Exceptions\ObjectError('Cannot produce temporary URL without an account secret.');
         }
 
-//        $this->getContainer()->getObject($path);
-
+        //$this->getContainer()->getObject($path);
         $method = strtoupper($options['method'] ?? 'GET');
         $expiry = Carbon::parse($expiration)->timestamp;
 
@@ -44,7 +51,6 @@ class SelectelAdapter extends RackspaceAdapter
 
         //$urlPath = urldecode($url->getPath());
         $urlPath = urldecode('/' . $this->getContainer()->name . '/' . $path);
-
         $body = sprintf("%s\n%d\n%s", $method, $expiry, $urlPath);
         $hash = hash_hmac('sha1', $body, $secret);
 
